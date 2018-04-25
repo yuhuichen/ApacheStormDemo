@@ -20,6 +20,7 @@ public class ExceptionBolt extends BaseRichBolt{
 	public void prepare(Map stormConf, TopologyContext context, OutputCollector collector) {
 		// TODO Auto-generated method stub
 		_collector = collector;
+		System.out.println("Exception Bolt started");
 	}
 
 	@Override
@@ -30,6 +31,7 @@ public class ExceptionBolt extends BaseRichBolt{
 		String sourceComponent = input.getSourceComponent();
 		String sourceStreamId = input.getSourceStreamId();
 		MessageId  msgId = input.getMessageId();
+		Map dataMap = (Map) input.getValueByField("dataMap");
 		
 		
 		String logOutput = String.format("Exception Bolt: \n"
@@ -38,13 +40,14 @@ public class ExceptionBolt extends BaseRichBolt{
 				+ "message = %s\n"
 				+ "sourceComponent = %s\n"
 				+ "sourceStreamId = %s\n"
-				+ "message id = %s\n",
-				seqId, uuid, message, sourceComponent, sourceStreamId, msgId.toString()
+				+ "message id = %s\n"
+				+ "pet = %s\n",
+				seqId, uuid, message, sourceComponent, sourceStreamId, msgId.toString(), dataMap.get("pet")
 				);
 		
 		System.out.println(logOutput);
 		
-		Map dataMap = new LinkedHashMap<String, String> ();
+		dataMap.put("pet", "dog");
 		
 		Values values =  new Values(message, uuid, seqId, dataMap);
 		_collector.emit("exceptionStream", values);

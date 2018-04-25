@@ -19,6 +19,7 @@ public class FinalBolt extends BaseRichBolt{
 	@Override
 	public void prepare(Map stormConf, TopologyContext context, OutputCollector collector) {
 		// TODO Auto-generated method stub
+		System.out.println("Final Bolt started");
 		_collector = collector;
 	}
 
@@ -30,6 +31,7 @@ public class FinalBolt extends BaseRichBolt{
 		String sourceComponent = input.getSourceComponent();
 		String sourceStreamId = input.getSourceStreamId();
 		MessageId  msgId = input.getMessageId();
+		Map dataMap = (Map) input.getValueByField("dataMap");
 		
 		
 		String logOutput = String.format("Final Bolt: \n"
@@ -38,15 +40,13 @@ public class FinalBolt extends BaseRichBolt{
 				+ "message = %s\n"
 				+ "sourceComponent = %s\n"
 				+ "sourceStreamId = %s\n"
-				+ "message id = %s\n",
-				seqId, uuid, message, sourceComponent, sourceStreamId, msgId.toString()
+				+ "message id = %s\n"
+				+ "pet = %s\n",
+				seqId, uuid, message, sourceComponent, sourceStreamId, msgId.toString(), dataMap.get("pet")
 				);
 		
 		System.out.println(logOutput);
-		
-		//Map dataMap = new LinkedHashMap<String, String> ();
-		
-		//Values vlaues =  new Values(message, uuid, seqId, dataMap);
+
 		
 		_collector.ack(input);
 		

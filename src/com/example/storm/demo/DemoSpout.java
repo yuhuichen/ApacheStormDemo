@@ -20,6 +20,7 @@ public class DemoSpout extends BaseRichSpout{
 	public void open(Map conf, TopologyContext context, SpoutOutputCollector collector) {
 		// TODO Auto-generated method stub
 		_collector = collector;
+		System.out.println("Demo Spout started");
 	}
 
 	@Override

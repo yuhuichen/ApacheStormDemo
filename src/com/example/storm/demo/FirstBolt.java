@@ -20,6 +20,7 @@ public class FirstBolt extends BaseRichBolt{
 	public void prepare(Map stormConf, TopologyContext context, OutputCollector collector) {
 		// TODO Auto-generated method stub
 		_collector = collector;
+		System.out.println("First Bolt started");
 	}
 
 	@Override
@@ -45,6 +46,7 @@ public class FirstBolt extends BaseRichBolt{
 		System.out.println(logOutput);
 		
 		Map dataMap = new LinkedHashMap<String, String> ();
+		dataMap.put("pet", "cat");
 		
 		
 		Values values =  new Values(message, uuid, seqId, dataMap);

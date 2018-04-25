@@ -22,7 +22,7 @@ public class DemoTopology {
 		
 		Config conf = new Config();
 		//conf.setNumWorkers(1);
-		conf.setMaxTaskParallelism(3);
+		//conf.setMaxTaskParallelism(3);
 		
 		
 		LocalCluster cluster = new LocalCluster();
